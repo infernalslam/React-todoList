@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
-// import logo from './logo.svg'
 import './App.css'
 import TaskList from './components/taskList.js'
 import Date from './components/date.js'
 import Avatar from './components/avatar.js'
 import Button from './components/button.js'
-// import moment from 'moment'
 
 class App extends Component {
   constructor () {
@@ -52,18 +50,20 @@ class App extends Component {
       description: '#test function'
     }
     this.state.tasks.push(task)
-    this.setState({task: this.state.tasks})
-    console.log('YES')
+    this.setState({tasks: this.state.tasks})
   }
   delTask (index) {
-    console.log('this props react : ', index)
+    var arr = this.state.tasks.findIndex((item) => item.id === index)
+    console.log('this props react : is arr = ', arr, index)
+    this.state.tasks.splice(arr, 1)
+    this.setState({tasks: this.state.tasks})
   }
   render () {
     return (
       <div style={{padding: '30px 30px'}}>
         <Avatar />
         <Date /> <br />
-        <TaskList tasks={this.state.tasks} delTask={this.delTask} /> <br />
+        <TaskList tasks={this.state.tasks} delTask={this.delTask.bind(this)} /> <br />
         <Button onClick={this.addTask.bind(this)} />
       </div>
     )
